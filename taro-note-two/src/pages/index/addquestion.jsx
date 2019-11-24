@@ -11,14 +11,12 @@ export default class AddQuestion extends Component {
   }
 
   onTitleChanged(event) {
-    console.log(event)
     this.setState({
       title: event.detail.value
     })
   }
 
   onDescChanged(event) {
-    console.log(event)
     this.setState({
       desc: event.detail.value
     })
@@ -41,6 +39,7 @@ export default class AddQuestion extends Component {
       <Dialog>
         <View className='add-question'>
           <View className='question-body'>
+            {/* 在 h5 中 setState 触发重新 render 后又会重新聚焦 */}
             <Input focus onInput={this.onTitleChanged.bind(this)} className='question-title' placeholder='请输入您的问题标题' />
             <Textarea onInput={this.onDescChanged.bind(this)} className='question-desc' placeholder='请输入您的问题描述' />
             <View className='btn-group'>

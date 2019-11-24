@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Text, Button, Image } from '@tarojs/components'
 import './index.less'
 
 import thumbUp from '../../img/thumb-up.png'
@@ -113,7 +113,7 @@ export default class Index extends Component {
           }
         </View>
         {this.state.showQeustionModal && <AddQuestion onClickCancel={this.dismissQuestionDialog.bind(this)} onAddQuestionSuccess={this.handleAddQuestionSuccess.bind(this)} />}
-        <Button onClick={this.showAddQuestionDialog.bind(this)} type='primary' className='btn-question'>提问</Button>
+        <Button onClick={this.showAddQuestionDialog.bind(this)} type='primary' className='btn-add-question'>提问</Button>
       </View>
     )
   }
