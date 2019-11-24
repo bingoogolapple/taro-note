@@ -12,7 +12,9 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/second/index',
+      'pages/third/index',
+      'pages/index/index', // navigateBack 找不到上一页时会自动跳转到 index
     ],
     window: {
       backgroundTextStyle: 'light',
