@@ -7,12 +7,13 @@ import Child from './child'
 export default class Index extends Component {
 
   config = {
-    navigationBarTitleText: '首页s'
+    navigationBarTitleText: '首页'
   }
 
   state = {
-    name: 'BGA',
-    nickname: 'bingoogolapple'
+    name: '父name',
+    nickname: '父nickname',
+    obj: undefined
   }
 
   componentWillMount() {
@@ -36,7 +37,8 @@ export default class Index extends Component {
     console.log('Parent componentDidShow')
 
     this.setState({
-      name: '王浩'
+      name: '父name更新后',
+      obj: { key: [{ name: 'aaaaaaaa' }] }
     }, () => {
       console.log('Parent 已更新完毕', this.state.name, this.state.nickname)
     })
@@ -74,14 +76,19 @@ export default class Index extends Component {
     return '我是描述信息'
   }
 
+  test() {
+    console.log('父组的 test 方法被调用')
+  }
+
   render() {
+    let { name, obj } = this.state
     return (
       <View className='index'>
         <Text>我是父组件</Text>
         <Text>{this.state.name}</Text>
         <Text>{this.state.nickname}</Text>
         <Text>{this.getDesc()}</Text>
-        <Child />
+        <Child name={name} obj={obj} onCallParentMethod={this.test} />
       </View>
     )
   }

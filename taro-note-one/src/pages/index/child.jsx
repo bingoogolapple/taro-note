@@ -1,15 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 
 export default class Child extends Component {
 
-  config = {
-    navigationBarTitleText: '首页s'
-  }
-
   state = {
-    name: 'BGA',
-    nickname: 'bingoogolapple'
+    childname: '子name',
+    nickname: '子nickname'
   }
 
   componentWillMount() {
@@ -33,11 +29,11 @@ export default class Child extends Component {
     console.log('Child componentDidShow')
 
     this.setState({
-      name: '王浩'
+      childname: '子name更新后'
     }, () => {
-      console.log('Child 已更新完毕', this.state.name, this.state.nickname)
+      console.log('Child 已更新完毕', this.state.childname, this.state.nickname)
     })
-    console.log('Child 未更新完毕', this.state.name, this.state.nickname)
+    console.log('Child 未更新完毕', this.state.childname, this.state.nickname)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,14 +67,27 @@ export default class Child extends Component {
     return '我是描述信息'
   }
 
+  clickParentMethod() {
+    this.props.onCallParentMethod()
+  }
+
   render() {
+    let { name, obj } = this.props
     return (
       <View className='index'>
         <Text>我是子节点</Text>
-        <Text>{this.state.name}</Text>
+        <Text>{this.state.childname}</Text>
         <Text>{this.state.nickname}</Text>
         <Text>{this.getDesc()}</Text>
+        <Text>{name}</Text>
+        <Text>{obj.key[0].name}</Text>
+        <Button size='mini' type='primary' onClick={this.clickParentMethod.bind(this)}>调用父组件的方法</Button>
       </View>
     )
   }
+}
+
+// 定义默认属性
+Child.defaultProps = {
+  obj: { key: [{ name: 'bbbbbbbb' }] }
 }
