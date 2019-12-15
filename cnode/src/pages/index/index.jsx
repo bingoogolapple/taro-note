@@ -4,6 +4,7 @@ import './index.less'
 
 // 需要合内部导出名保持一致，在 h5 中可以不一致，小程序中必须一致
 import Menu from '../../components/menu/menu'
+import TopicList from '../../components/topiclist/topiclist'
 
 class Index extends Component {
 
@@ -25,6 +26,7 @@ class Index extends Component {
     return (
       <View className='index'>
         <Menu />
+        <TopicList  />
       </View>
     )
   }

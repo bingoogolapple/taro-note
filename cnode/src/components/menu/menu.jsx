@@ -1,9 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Button, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { showDrawer, hideDrawer } from '../../actions/menu'
+import { showDrawer, hideDrawer, changeCata } from '../../actions/menu'
 
 import './menu.less'
+
+import { AtDrawer } from 'taro-ui'
 
 @connect(function (allStore) {
     // 将 allStore 中指定节点转换成 props
@@ -25,6 +27,9 @@ import './menu.less'
         },
         hideDrawer() {
             dispatch(hideDrawer())
+        },
+        changeCata(cata) {
+            dispatch(changeCata(cata))
         }
     }
 })
@@ -37,12 +42,35 @@ class Menu extends Component {
     closeDrawer() {
         this.props.hideDrawer()
     }
+    // 获取分类列表
+    getItems() {
+        console.log(this)
+        return this.props.cataData.map(item => item.value);
+    }
+    // 点击分类
+    clickCata(index) {
+        let { cataData } = this.props;
+        let clickCata = cataData[index];
+        if (clickCata.key !== this.props.currentCata.key) {
+            this.props.changeCata(clickCata);
+        }
+    }
     render() {
-        return (<View className='topiclist-menu'>
-            {/* h5 中可以直接写箭头函数，但是小程序中不可以。onClick={() => this.props.showMenu()} */}
-            <Image onClick={this.showDrawer.bind(this)} className='image' src={require('../../assets/img/cata.png')} />
-            <Text>{this.props.currentCata.value}</Text>
-            <Image className='image' src={require('../../assets/img/login.png')} />
+        let { showDrawer, currentCata } = this.props;
+        return (<View>
+            <AtDrawer
+                className='at-drawer'
+                show={showDrawer}
+                onClose={this.closeDrawer.bind(this)}
+                onItemClick={this.clickCata.bind(this)}
+                items={this.getItems()}
+            />
+            <View className='topiclist-menu'>
+                {/* h5 中可以直接写箭头函数，但是小程序中不可以。onClick={() => this.props.showMenu()} */}
+                <Image onClick={this.showDrawer.bind(this)} className='image' src={require('../../assets/img/cata.png')} />
+                <Text>{currentCata.value}</Text>
+                <Image className='image' src={require('../../assets/img/login.png')} />
+            </View>
         </View>)
     }
 }

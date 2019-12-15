@@ -19,3 +19,8 @@ npm run build:weapp
 ```txt
 https://cnodejs.org/api
 ```
+
+```shell
+npm install -S taro-ui
+npm install -S acorn
+```

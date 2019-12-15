@@ -1,3 +1,5 @@
+import { getTopicList } from './topiclist';
+
 /*
 同步方式显示抽屉
 export const showDrawer = () => {
@@ -18,5 +20,12 @@ export function showDrawer() {
 export function hideDrawer() {
     return (dispatch) => {
         dispatch({ type: 'hideDrawer' })
+    }
+}
+// 切换当前分类
+export function changeCata(cata) {
+    return dispatch => {
+        dispatch({ type: 'changeCata', currentCata: cata });
+        dispatch(getTopicList({ tab: cata.key, page: 1, limit: 20 }));
     }
 }

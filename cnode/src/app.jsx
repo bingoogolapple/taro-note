@@ -8,6 +8,8 @@ import configStore from './store'
 
 import './app.less'
 
+import 'taro-ui/dist/style/index.scss'
+
 Taro.addInterceptor(Taro.interceptors.logInterceptor)
 Taro.addInterceptor(Taro.interceptors.timeoutInterceptor)
 
@@ -23,7 +25,8 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/detail/index'
     ],
     window: {
       backgroundTextStyle: 'light',
