@@ -32,4 +32,9 @@ class TopicItem extends Component {
         </View>)
     }
 }
+// 方法包裹的变量在 Taro 转换成小程序的过程中会首先进行声明
+// 声明一下 item 默认值，否则转换成小程序中 {myTimeToLocal(item.create_at)} 会报错
+TopicItem.defaultProps = {
+    item: {}
+}
 export default TopicItem;

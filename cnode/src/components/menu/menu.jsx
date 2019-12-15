@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Button, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { showDrawer, hideDrawer, changeCata } from '../../actions/menu'
+import { validateUser } from '../../actions/user';
 
 import './menu.less'
 
@@ -9,7 +10,7 @@ import { AtDrawer } from 'taro-ui'
 
 @connect(function (allStore) {
     // 将 allStore 中指定节点转换成 props
-    return { ...allStore.menu }
+    return { ...allStore.menu, user: allStore.user }
 }, function (dispatch) {
     // 返回一个对象，对象中定义了一个个的函数，通过 props 的形式传递给组件
     return {
@@ -55,6 +56,15 @@ class Menu extends Component {
             this.props.changeCata(clickCata);
         }
     }
+    toUser() {
+        let { user } = this.props;
+        validateUser(user).then(result => {
+            if (result) {
+                //成功跳转到用户详情
+                Taro.navigateTo({ url: '/pages/user/user' });
+            }
+        })
+    }
     render() {
         let { showDrawer, currentCata } = this.props;
         return (<View>
@@ -69,7 +79,7 @@ class Menu extends Component {
                 {/* h5 中可以直接写箭头函数，但是小程序中不可以。onClick={() => this.props.showMenu()} */}
                 <Image onClick={this.showDrawer.bind(this)} className='image' src={require('../../assets/img/cata.png')} />
                 <Text>{currentCata.value}</Text>
-                <Image className='image' src={require('../../assets/img/login.png')} />
+                <Image onClick={this.toUser.bind(this)} className='image' src={require('../../assets/img/login.png')} />
             </View>
         </View>)
     }

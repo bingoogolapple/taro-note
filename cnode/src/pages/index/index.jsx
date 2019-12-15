@@ -26,7 +26,7 @@ class Index extends Component {
     return (
       <View className='index'>
         <Menu />
-        <TopicList  />
+        <TopicList />
       </View>
     )
   }
