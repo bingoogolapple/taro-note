@@ -28,6 +28,11 @@ ageNum = funcType3(1) // 必须按顺序来
 ageNum = funcType3('1', 1)
 ageNum = funcType3('1', 1, '男')
 
+function funcTypeDot(name: string, ...rest:string[]) {
+    console.log(name, rest)
+}
+funcTypeDot('BGA')
+funcTypeDot('BGA', 'bingo', 'googol', 'apple')
 
 // 表达式类型的函数
 // 对函数进行约束
@@ -62,6 +67,11 @@ getValue('1')
 function getMultiValue(value: number): number
 function getMultiValue(value: string): string
 function getMultiValue(value: number | string): number | string {
+    if (typeof value === 'number') {
+        return value.toString()
+    } else if(typeof value === 'string') {
+        return Number(value)
+    }
     return value
 }
 var gNum: number = getMultiValue(1)

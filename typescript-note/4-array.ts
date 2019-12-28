@@ -26,6 +26,9 @@ var arr8: Array<IUser> = [{ name: 'BGA', age: 28 }]
 interface IStringArr {
     [index: number]: string
 }
+interface IReadonlyStringArr {
+    readonly [index: number]: string
+}
 interface INumberArr {
     [index: number]: number
 }

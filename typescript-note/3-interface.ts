@@ -55,3 +55,106 @@ var state4: IState4
 state4 = { name: 'BGA', age: 28 }
 state4.name = 'bingoogolapple'
 state4.age = 29
+
+////////////////////////////////////////////////////////
+
+interface ClockInterface {
+    tick()
+}
+interface ClockConstructor {
+    new(hour: number, minute: number): ClockInterface
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute)
+}
+
+// 实现接口要实现接口中定义的属性和方法
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) {
+    }
+
+    tick() {
+        console.log('beep beep')
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) {
+    }
+
+    tick() {
+        console.log('tick')
+    }
+}
+let digital = createClock(DigitalClock, 12, 17)
+let analog = createClock(AnalogClock, 11, 12)
+
+////////////////////////////////////////////////////////
+
+interface Shape {
+    color: String
+}
+interface PenStroke {
+    penWidth: number
+}
+interface Square extends Shape, PenStroke {
+    sideLength: number
+}
+
+let square = {} as Square
+square.color = 'blue'
+square.penWidth = 5.5
+square.sideLength = 10
+
+////////////////////////////////////////////////////////
+
+interface Counter {
+    (start: number): string
+
+    interval: number
+
+    reset(): void
+}
+
+function getCounter(): Counter {
+    let counter = (function (start: number) {
+        console.log('reset')
+    }) as Counter
+    counter.interval = 123
+    counter.reset = function () {
+        console.log('reset')
+    }
+    return counter
+}
+
+let c = getCounter()
+c(10)
+c.reset()
+c.interval = 1
+
+////////////////////////////////////////////////////////
+
+class Control {
+    private state: any
+}
+
+// 接口继承类时会继承私有成员
+interface SelectableControl extends Control {
+    select()
+}
+
+class Button extends Control implements SelectableControl {
+    select() {
+    }
+}
+class TextBox extends Control {
+    // 没有实现接口 SelectableControl 也可以定义 select 方法
+    select() {
+    }
+}
+
+class ImageC implements SelectableControl {
+    // 接口继承类时会继承私有成员，这里没有继承 Controll，所以会报错没有 state 属性
+    select() {
+    }
+}
